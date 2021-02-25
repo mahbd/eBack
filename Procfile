@@ -1,1 +1,1 @@
-web: daphne logo.asgi:application --port $PORT --bind 0.0.0.0 -v2
+web: daphne eBack.asgi:application --port $PORT --bind 0.0.0.0 -v2
