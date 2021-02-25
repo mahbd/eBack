@@ -40,6 +40,7 @@ class Product(models.Model):
     description = models.TextField()
     stock = models.PositiveIntegerField(default=0)
     offer = models.IntegerField(default=0)
+    rating = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(5)])
     timestamp = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
