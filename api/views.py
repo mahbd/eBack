@@ -44,7 +44,10 @@ class MessageView(generics.CreateAPIView):
 
 
 class ProductViewSet(viewsets.ModelViewSet):
-    queryset = Product.objects.all()
+    def get_queryset(self):
+        if self.request.GET.get('cat'):
+            return Product.objects.filter(category__name=self.request.GET.get('cat'))
+        return Product.objects.all()
     serializer_class = ProductSerializer
 
 
