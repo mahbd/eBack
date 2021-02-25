@@ -14,5 +14,6 @@ router.register('product', views.ProductViewSet, 'product')
 urlpatterns = [
     path('subscribe/', csrf_exempt(views.NewsletterSubscriberView.as_view())),
     path('message/', csrf_exempt(views.MessageView.as_view())),
+    path('recommend/', views.Recommend.as_view()),
     path('', include(router.urls)),
 ]

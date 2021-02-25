@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from random import choices
 
 from django.core.mail import send_mail
 from django.db.models.signals import post_save
@@ -60,6 +61,13 @@ class PurchaseViewSet(viewsets.ModelViewSet):
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+
+
+class Recommend(generics.ListAPIView):
+    def get_queryset(self):
+        return choices(Product.objects.all(), k=20)
+
+    serializer_class = ProductSerializer
 
 
 @receiver(post_save, sender=NewsletterSubscriber)
