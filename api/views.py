@@ -4,6 +4,7 @@ from random import choices
 from django.core.mail import send_mail
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, generics, permissions
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
@@ -49,6 +50,7 @@ class ProductViewSet(viewsets.ModelViewSet):
         if self.request.GET.get('cat'):
             return Product.objects.filter(category__name=self.request.GET.get('cat'))
         return Product.objects.all()
+
     serializer_class = ProductSerializer
 
 
@@ -67,13 +69,15 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         ls = PurchaseSerializer(Purchase.objects.filter(user=request.user, paid=False, delivered=False), many=True)
         return Response(ls.data)
 
+    @action(detail=False)
+    def delivered_list(self, request, *args, **kwargs):
+        ls = PurchaseSerializer(Purchase.objects.filter(user=request.user, paid=True, delivered=True), many=True)
+        return Response(ls.data)
 
-class CartView(generics.ListCreateAPIView):
-    def get_queryset(self):
-        return Purchase.objects.filter(user=self.request.user, paid=False, delivered=False)
-
-    serializer_class = PurchaseSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    @action(detail=False)
+    def way_list(self, request, *args, **kwargs):
+        ls = PurchaseSerializer(Purchase.objects.filter(user=request.user, paid=True, delivered=False), many=True)
+        return Response(ls.data)
 
 
 class CategoryViewSet(viewsets.ModelViewSet):

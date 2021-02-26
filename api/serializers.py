@@ -43,6 +43,7 @@ class PurchaseSerializer(serializers.ModelSerializer):
         return attrs
 
     class Meta:
+        depth = 1
         model = Purchase
         exclude = ('user', )
 
