@@ -51,6 +51,11 @@ class ProductViewSet(viewsets.ModelViewSet):
             return Product.objects.filter(category__name=self.request.GET.get('cat'))
         return Product.objects.all()
 
+    @action(detail=False)
+    def search(self, request, *args, **kwargs):
+        ls = ProductSerializer(Product.objects.filter(name__contains=request.GET.get('name')), many=True)
+        return Response(ls.data)
+
     serializer_class = ProductSerializer
 
 
