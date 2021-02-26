@@ -1,17 +1,13 @@
-from django.conf import settings
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+import json
+import string
+from random import choices
+
+from django.http import JsonResponse
 from rest_framework import viewsets
-from rest_framework.authtoken.models import Token
 
 from .authentication import IsAuthenticatedOrReadCreate
+from .models import User
 from .serializers import BasicUserSerializer, FullUserSerializer
-
-
-@receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def create_auth_token(sender, instance=None, created=False, **kwargs):
-    if created:
-        Token.objects.create(user=instance)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -22,3 +18,16 @@ class UserViewSet(viewsets.ModelViewSet):
         return BasicUserSerializer
 
     permission_classes = [IsAuthenticatedOrReadCreate]
+
+
+def create_user(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        email = data['email']
+        password = data['password']
+        username = ''.join(choices(string.ascii_letters, k=20))
+        try:
+            User.objects.create_user(username=username, email=email, password=password)
+            return JsonResponse({}, status=201)
+        except :
+            return JsonResponse({"details": "Something went wrong"}, status=400)
