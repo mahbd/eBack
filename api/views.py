@@ -75,6 +75,19 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         return Response(ls.data)
 
     @action(detail=False)
+    def cart(self, request, *args, **kwargs):
+        pro_id = request.GET.get('product_id')
+        if pro_id:
+            try:
+                purchase = Purchase.objects.get(product_id=pro_id)
+                purchase.quantity = purchase.quantity + 1
+            except Purchase.DoesNotExist:
+                Purchase.objects.create(user=request.user, product_id=pro_id)
+            return Response({}, status=201)
+        return Response({}, status=400)
+
+
+    @action(detail=False)
     def delivered_list(self, request, *args, **kwargs):
         ls = PurchaseSerializer(Purchase.objects.filter(user=request.user, paid=True, delivered=True), many=True)
         return Response(ls.data)
