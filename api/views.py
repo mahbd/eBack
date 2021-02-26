@@ -67,11 +67,11 @@ class UserReviewViewSet(viewsets.ModelViewSet):
 class PurchaseViewSet(viewsets.ModelViewSet):
     queryset = Purchase.objects.all()
     serializer_class = PurchaseSerializer
-    # permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     @action(detail=False)
     def cart_list(self, request, *args, **kwargs):
-        ls = PurchaseSerializer(Purchase.objects.filter(paid=False, delivered=False), many=True)
+        ls = PurchaseSerializer(Purchase.objects.filter(user=request.user,paid=False, delivered=False), many=True)
         return Response(ls.data)
 
     @action(detail=False)
@@ -111,6 +111,11 @@ class PurchaseViewSet(viewsets.ModelViewSet):
         except ValueError:
             pass
         return Response({}, status=400)
+
+    @action(detail=False)
+    def cart_reset(self, request, *args, **kwargs):
+        Purchase.objects.filter(user=request.user, delivered=False, paid=False).delete()
+        return Response({}, status=201)
 
     @action(detail=False)
     def delivered_list(self, request, *args, **kwargs):
