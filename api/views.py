@@ -4,9 +4,10 @@ from random import choices
 from django.core.mail import send_mail
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from rest_framework import viewsets, generics
+from rest_framework import viewsets, generics, permissions
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
+from rest_framework.decorators import action
 
 from eBack import settings
 from .models import SiteData, NewsletterSubscriber, Message, Product, UserReview, Purchase, Category
@@ -59,6 +60,20 @@ class UserReviewViewSet(viewsets.ModelViewSet):
 class PurchaseViewSet(viewsets.ModelViewSet):
     queryset = Purchase.objects.all()
     serializer_class = PurchaseSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    @action(detail=False)
+    def cart_list(self, request, *args, **kwargs):
+        ls = PurchaseSerializer(Purchase.objects.filter(user=request.user, paid=False, delivered=False), many=True)
+        return Response(ls.data)
+
+
+class CartView(generics.ListCreateAPIView):
+    def get_queryset(self):
+        return Purchase.objects.filter(user=self.request.user, paid=False, delivered=False)
+
+    serializer_class = PurchaseSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
