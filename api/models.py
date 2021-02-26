@@ -54,6 +54,9 @@ class UserReview(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(default=timezone.now, editable=False)
 
+    class Meta:
+        unique_together = ('user', 'product')
+
 
 class Purchase(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -62,3 +65,6 @@ class Purchase(models.Model):
     paid = models.BooleanField(default=False)
     delivered = models.BooleanField(default=False)
     timestamp = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        unique_together = ('user', 'product', 'delivered')
