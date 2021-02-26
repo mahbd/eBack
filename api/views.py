@@ -67,7 +67,7 @@ class UserReviewViewSet(viewsets.ModelViewSet):
 class PurchaseViewSet(viewsets.ModelViewSet):
     queryset = Purchase.objects.all()
     serializer_class = PurchaseSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    # permission_classes = [permissions.IsAuthenticated]
 
     @action(detail=False)
     def cart_list(self, request, *args, **kwargs):
@@ -77,15 +77,20 @@ class PurchaseViewSet(viewsets.ModelViewSet):
     @action(detail=False)
     def cart(self, request, *args, **kwargs):
         pro_id = request.GET.get('product_id')
-        if pro_id:
-            try:
-                purchase = Purchase.objects.get(product_id=pro_id)
-                purchase.quantity = purchase.quantity + 1
-            except Purchase.DoesNotExist:
-                Purchase.objects.create(user=request.user, product_id=pro_id)
-            return Response({}, status=201)
+        try:
+            pro_id = int(pro_id)
+            if pro_id:
+                try:
+                    print(pro_id, "Hello world")
+                    purchase = Purchase.objects.get(product_id=pro_id)
+                    purchase.quantity = purchase.quantity + 1
+                    purchase.save()
+                except Purchase.DoesNotExist:
+                    Purchase.objects.create(user=request.user, product_id=pro_id)
+                return Response({}, status=201)
+        except ValueError:
+            pass
         return Response({}, status=400)
-
 
     @action(detail=False)
     def delivered_list(self, request, *args, **kwargs):
