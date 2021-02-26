@@ -4,11 +4,10 @@ from random import choices
 from django.core.mail import send_mail
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, generics, permissions
+from rest_framework.decorators import action
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
-from rest_framework.decorators import action
 
 from eBack import settings
 from .models import SiteData, NewsletterSubscriber, Message, Product, UserReview, Purchase, Category
@@ -81,7 +80,7 @@ class PurchaseViewSet(viewsets.ModelViewSet):
             pro_id = int(pro_id)
             if pro_id:
                 try:
-                    purchase = Purchase.objects.get(product_id=pro_id)
+                    purchase = Purchase.objects.get(product_id=pro_id, user=request.user)
                     purchase.quantity = purchase.quantity + 1
                     purchase.save()
                 except Purchase.DoesNotExist:
@@ -99,7 +98,7 @@ class PurchaseViewSet(viewsets.ModelViewSet):
             pro_id = int(pro_id)
             if pro_id:
                 try:
-                    purchase = Purchase.objects.get(product_id=pro_id)
+                    purchase = Purchase.objects.get(product_id=pro_id, user=request.user)
                     if all_rem or purchase.quantity == 1:
                         purchase.delete()
                     else:
