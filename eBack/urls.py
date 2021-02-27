@@ -8,7 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('api/', include('api.urls')),
-    path('', lambda x: HttpResponse("Hello world3"))
+    path('', lambda x: HttpResponse("Hello world4"))
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
