@@ -30,7 +30,11 @@ class UserReviewAdmin(admin.ModelAdmin):
     list_display = ('user_id', 'product_id', 'rating')
 
 
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display = ('name', 'category', 'stock', 'price')
+
+
 admin.site.register(Message)
 admin.site.register(Category)
-admin.site.register(Product)
 admin.site.register(Purchase)
