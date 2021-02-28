@@ -70,7 +70,7 @@ class PurchaseViewSet(viewsets.ModelViewSet):
 
     @action(detail=False)
     def cart_list(self, request, *args, **kwargs):
-        ls = PurchaseSerializer(Purchase.objects.filter(user=request.user, paid=False, delivered=False), many=True)
+        ls = PurchaseSerializer(sorted(Purchase.objects.filter(user=request.user, paid=False, delivered=False)), many=True)
         return Response(ls.data)
 
     @action(detail=False)
