@@ -59,7 +59,13 @@ class ProductViewSet(viewsets.ModelViewSet):
 
 
 class UserReviewViewSet(viewsets.ModelViewSet):
-    queryset = UserReview.objects.all()
+    def get_queryset(self):
+        product_id = self.request.GET.get('product_id')
+        try:
+            product_id = int(product_id)
+            return UserReview.objects.filter(product_id=product_id)
+        except ValueError:
+            return UserReview.objects.all()
     serializer_class = UserReviewSerializer
 
 
