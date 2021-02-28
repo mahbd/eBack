@@ -67,4 +67,5 @@ class Purchase(models.Model):
     timestamp = models.DateTimeField(default=timezone.now)
 
     class Meta:
+        ordering = ('id', )
         unique_together = ('user', 'product', 'delivered')
