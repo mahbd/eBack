@@ -25,8 +25,12 @@ class NewsletterAdmin(admin.ModelAdmin):
     list_display = ('id', 'email')
 
 
+@admin.register(UserReview)
+class UserReviewAdmin(admin.ModelAdmin):
+    list_display = ('user_id', 'product_id', 'rating')
+
+
 admin.site.register(Message)
 admin.site.register(Category)
 admin.site.register(Product)
 admin.site.register(Purchase)
-admin.site.register(UserReview)
