@@ -66,6 +66,7 @@ class UserReviewViewSet(viewsets.ModelViewSet):
             return UserReview.objects.filter(product_id=product_id)
         except TypeError:
             return UserReview.objects.all()
+
     serializer_class = UserReviewSerializer
 
 
@@ -121,6 +122,23 @@ class PurchaseViewSet(viewsets.ModelViewSet):
     def cart_reset(self, request, *args, **kwargs):
         Purchase.objects.filter(user=request.user, delivered=False, paid=False).delete()
         return Response({}, status=201)
+
+    @action(detail=False)
+    def order(self, request, *args, **kwargs):
+        pro_id = request.GET.get('product_id')
+        try:
+            pro_id = int(pro_id)
+            if pro_id:
+                try:
+                    purchase = Purchase.objects.get(product_id=pro_id, user=request.user)
+                    purchase.paid = True
+                    purchase.save()
+                except Purchase.DoesNotExist:
+                    pass
+                return Response({}, status=201)
+        except ValueError:
+            pass
+        return Response({}, status=400)
 
     @action(detail=False)
     def delivered_list(self, request, *args, **kwargs):
