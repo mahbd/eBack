@@ -1,0 +1,75 @@
+#main-slider img {
+	width: 100%;
+	height: 100vh;
+}
+.centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+#main-slider .container {
+	position: relative;
+	text-align: center;
+	
+}
+
+#main-slider p {
+	font-size: 35px;
+	line-height: 45px;
+	margin-bottom: 50px;
+	color: white;
+	font-style: italic;
+	font-weight: 100;
+}
+
+#main-slider h2 {
+	font-size: 90px;
+	font-weight: 100;
+	color: white;
+}
+#main-slider button {
+	color: #fff;
+
+	transition: 0.5s;
+	font-size: 15px;
+	font-weight: 500;
+	color: #fff;
+	background-color: red;
+	padding: 20px 40px;
+	border-radius: 50px;
+	text-transform: uppercase;
+}
+
+#main-slider button:hover {
+	background: #903749;
+
+}
+#main-slider .swiper-button-next {
+	width: 70px;
+	height: 70px;
+	line-height: 70px;
+	font-size: 20px;
+	background: rgba(0, 0, 0, 0.5);
+	padding: 5px;
+	color: white;
+	border-radius: 50%;
+	right: 5%;
+}
+
+#main-slider .swiper-button-prev {
+	width: 70px;
+	height: 70px;
+	line-height: 70px;
+	font-size: 20px;
+	background: rgba(0, 0, 0, 0.5);
+	padding: 5px;
+	color: white;
+	border-radius: 50%;
+	left: 5%;
+}
+#main-slider .swiper-button-prev:hover,
+#main-slider .swiper-button-next:hover {
+	background: #111;
+	transition: 1s;
+}

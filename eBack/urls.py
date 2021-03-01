@@ -9,9 +9,9 @@ def index(request):
     return render(request, 'build/index.html')
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('users/', include('users.urls')),
-    path('api/', include('api.urls')),
+    re_path('admin/$', admin.site.urls),
+    re_path('users/$', include('users.urls')),
+    re_path('api/$', include('api.urls')),
     re_path('$', index),
 ]
 

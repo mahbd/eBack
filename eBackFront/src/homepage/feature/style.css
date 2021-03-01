@@ -1,0 +1,13 @@
+
+.features-boxed .item {
+    text-align: center;
+}
+.features-boxed{
+	background: #f1f1f1;
+}
+.features-boxed .item .box {
+    text-align: center;
+    padding: 30px;
+    background-color: #fff;
+    margin-bottom: 30px;
+}
