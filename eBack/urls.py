@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.urls import path, include, re_path
 
-def index(request):
+def index(request, *args, **kwargs):
     return render(request, 'build/index.html')
 
 urlpatterns = [
