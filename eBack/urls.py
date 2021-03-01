@@ -9,10 +9,11 @@ def index(request):
     return render(request, 'build/index.html')
 
 urlpatterns = [
-    re_path('admin/$', admin.site.urls),
-    re_path('users/$', include('users.urls')),
-    re_path('api/$', include('api.urls')),
-    re_path('$', index),
+    path('admin/', admin.site.urls),
+    path('users/', include('users.urls')),
+    path('api/', include('api.urls')),
+    re_path(r'^(?!admin|users|api)([a-z0-9]+)$', index),
+    path('', index),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
