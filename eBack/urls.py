@@ -12,7 +12,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls')),
     path('api/', include('api.urls')),
-    re_path(r'^(?!admin|users|api)([a-z0-9/]+)$', index),
+    re_path(r'^(?!admin|users|api)([a-z0-9/]+).*', index),
     path('', index),
 ]
 
