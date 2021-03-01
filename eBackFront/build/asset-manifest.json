@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.dfb92edc.chunk.css",
+    "main.js": "/static/js/main.39ef688a.chunk.js",
+    "main.js.map": "/static/js/main.39ef688a.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.debff98c.js",
+    "runtime-main.js.map": "/static/js/runtime-main.debff98c.js.map",
+    "static/css/2.99c885f4.chunk.css": "/static/css/2.99c885f4.chunk.css",
+    "static/js/2.9947779e.chunk.js": "/static/js/2.9947779e.chunk.js",
+    "static/js/2.9947779e.chunk.js.map": "/static/js/2.9947779e.chunk.js.map",
+    "static/js/3.1d194d30.chunk.js": "/static/js/3.1d194d30.chunk.js",
+    "static/js/3.1d194d30.chunk.js.map": "/static/js/3.1d194d30.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.99c885f4.chunk.css.map": "/static/css/2.99c885f4.chunk.css.map",
+    "static/css/main.dfb92edc.chunk.css.map": "/static/css/main.dfb92edc.chunk.css.map",
+    "static/js/2.9947779e.chunk.js.LICENSE.txt": "/static/js/2.9947779e.chunk.js.LICENSE.txt",
+    "static/media/style.css": "/static/media/icomoon.63820f71.svg",
+    "static/media/font-awesome.css": "/static/media/fontawesome-webfont.f691f37e.woff",
+    "static/media/image-support.28a20009.jpg": "/static/media/image-support.28a20009.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.debff98c.js",
+    "static/css/2.99c885f4.chunk.css",
+    "static/js/2.9947779e.chunk.js",
+    "static/css/main.dfb92edc.chunk.css",
+    "static/js/main.39ef688a.chunk.js"
+  ]
+}
