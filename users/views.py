@@ -25,9 +25,10 @@ def create_user(request):
         data = json.loads(request.body)
         email = data['email']
         password = data['password']
+        address = data.get('address')
         username = ''.join(choices(string.ascii_letters, k=20))
         try:
-            User.objects.create_user(username=username, email=email, password=password)
+            User.objects.create_user(username=username, email=email, password=password, address=address)
             return JsonResponse({}, status=201)
         except :
             return JsonResponse({"details": "Something went wrong"}, status=400)

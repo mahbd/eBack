@@ -8,6 +8,7 @@ class User(AbstractUser):
             'unique': _("A user with that email already exists."),
         })
     profile_picture = models.URLField(_('profile picture'), blank=True, null=True)
+    address = models.TextField(null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
