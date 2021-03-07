@@ -56,7 +56,7 @@ ROOT_URLCONF = 'eBack.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
+        'DIRS': [os.path.join(BASE_DIR, 'templates'), os.path.join(BASE_DIR, "eBackFront")]
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -127,6 +127,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'eBackFront', 'build', 'static'),)
 
 # Extra settings
 AUTH_USER_MODEL = 'users.User'

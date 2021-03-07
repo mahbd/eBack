@@ -52,7 +52,8 @@ class ProductViewSet(viewsets.ModelViewSet):
 
     @action(detail=False)
     def search(self, request, *args, **kwargs):
-        ls = ProductSerializer(Product.objects.filter(name__contains=request.GET.get('name')), many=True)
+        print(request.GET.get('name'))
+        ls = ProductSerializer(Product.objects.filter(name__icontains=request.GET.get('name')), many=True)
         return Response(ls.data)
 
     serializer_class = ProductSerializer
