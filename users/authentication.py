@@ -18,6 +18,8 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['name'] = user.get_full_name()
         token['username'] = user.username
         token['email'] = user.email
+        token['address'] = user.address
+        token['profile'] = user.profile_picture
 
         return token
 
