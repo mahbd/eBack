@@ -3,11 +3,11 @@ import string
 from random import choices
 
 from django.http import JsonResponse
-from rest_framework import viewsets
+from rest_framework import viewsets, generics, permissions
 
 from .authentication import IsAuthenticatedOrReadCreate
 from .models import User
-from .serializers import BasicUserSerializer, FullUserSerializer
+from .serializers import BasicUserSerializer, FullUserSerializer, UserImageSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -30,5 +30,11 @@ def create_user(request):
         try:
             User.objects.create_user(username=username, email=email, password=password, address=address)
             return JsonResponse({}, status=201)
-        except :
+        except:
             return JsonResponse({"details": "Something went wrong"}, status=400)
+
+
+class UpdateImage(generics.UpdateAPIView):
+    serializer_class = UserImageSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = User.objects.all()
