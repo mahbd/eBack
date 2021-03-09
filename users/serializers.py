@@ -23,3 +23,9 @@ class UserImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('profile_picture', )
+
+
+class UserUpdateInfoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('address', 'phone', 'facebook', 'twitter')

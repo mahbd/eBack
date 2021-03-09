@@ -7,7 +7,7 @@ from rest_framework import viewsets, generics, permissions
 
 from .authentication import IsAuthenticatedOrReadCreate
 from .models import User
-from .serializers import BasicUserSerializer, FullUserSerializer, UserImageSerializer
+from .serializers import BasicUserSerializer, FullUserSerializer, UserImageSerializer, UserUpdateInfoSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -18,6 +18,7 @@ class UserViewSet(viewsets.ModelViewSet):
         return BasicUserSerializer
 
     permission_classes = [IsAuthenticatedOrReadCreate]
+    lookup_field = 'email'
 
 
 def create_user(request):
@@ -36,5 +37,11 @@ def create_user(request):
 
 class UpdateImage(generics.UpdateAPIView):
     serializer_class = UserImageSerializer
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = User.objects.all()
+
+
+class UpdateInfo(generics.UpdateAPIView):
+    serializer_class = UserUpdateInfoSerializer
     permission_classes = [permissions.IsAuthenticated]
     queryset = User.objects.all()
