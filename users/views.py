@@ -35,7 +35,7 @@ def create_user(request):
             return JsonResponse({"details": "Something went wrong"}, status=400)
 
 
-class UpdateImage(generics.UpdateAPIView):
+class UpdateImage(generics.RetrieveUpdateAPIView):
     def get_object(self):
         try:
             return User.objects.get(email=self.request.GET.get('email'))
@@ -45,7 +45,7 @@ class UpdateImage(generics.UpdateAPIView):
     queryset = User.objects.all()
 
 
-class UpdateInfo(generics.UpdateAPIView):
+class UpdateInfo(generics.RetrieveUpdateAPIView):
     def get_object(self):
         try:
             return User.objects.get(email=self.request.GET.get('email'))
