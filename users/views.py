@@ -37,11 +37,11 @@ def create_user(request):
 
 class UpdateImage(generics.UpdateAPIView):
     serializer_class = UserImageSerializer
-    permission_classes = [permissions.IsAuthenticated]
     queryset = User.objects.all()
+    lookup_field = 'email'
 
 
 class UpdateInfo(generics.UpdateAPIView):
     serializer_class = UserUpdateInfoSerializer
-    permission_classes = [permissions.IsAuthenticated]
     queryset = User.objects.all()
+    lookup_field = 'email'
