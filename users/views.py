@@ -2,7 +2,7 @@ import json
 import string
 from random import choices
 
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from rest_framework import viewsets, generics, permissions
 
 from .authentication import IsAuthenticatedOrReadCreate
@@ -36,12 +36,20 @@ def create_user(request):
 
 
 class UpdateImage(generics.UpdateAPIView):
+    def get_object(self):
+        try:
+            return User.objects.get(email=self.request.GET.get('email'))
+        except User.DoesNotExist:
+            raise Http404
     serializer_class = UserImageSerializer
     queryset = User.objects.all()
-    lookup_field = 'email'
 
 
 class UpdateInfo(generics.UpdateAPIView):
+    def get_object(self):
+        try:
+            return User.objects.get(email=self.request.GET.get('email'))
+        except User.DoesNotExist:
+            raise Http404
     serializer_class = UserUpdateInfoSerializer
     queryset = User.objects.all()
-    lookup_field = 'email'
