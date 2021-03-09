@@ -18,6 +18,9 @@ class User(AbstractUser):
     })
     profile_picture = models.ImageField(_('profile picture'), blank=True, null=True, upload_to=get_file_path)
     address = models.TextField(null=True, blank=True)
+    phone = models.CharField(max_length=14, blank=True, null=True)
+    facebook = models.CharField(max_length=255, blank=True, null=True)
+    twitter = models.CharField(max_length=255, blank=True, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']

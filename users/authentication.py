@@ -20,6 +20,9 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['email'] = user.email
         token['address'] = user.address
         token['profile'] = user.profile_picture
+        token['phone'] = user.phone
+        token['facebook'] = user.facebook
+        token['twitter'] = user.twitter
 
         return token
 
