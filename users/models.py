@@ -16,7 +16,7 @@ class User(AbstractUser):
     email = models.EmailField(_('email address'), unique=True, error_messages={
         'unique': _("A user with that email already exists."),
     })
-    profile_picture = models.ImageField(_('profile picture'), blank=True, null=True, upload_to=get_file_path)
+    profile_picture = models.CharField(_('profile picture'), blank=True, null=True, max_length=255)
     address = models.TextField(null=True, blank=True)
     phone = models.CharField(max_length=14, blank=True, null=True)
     facebook = models.CharField(max_length=255, blank=True, null=True)

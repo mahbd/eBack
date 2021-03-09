@@ -19,10 +19,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['username'] = user.username
         token['email'] = user.email
         token['address'] = user.address
-        try:
-            token['profile'] = user.profile_picture.url
-        except ValueError:
-            token['profile'] = None
+        token['profile'] = user.profile_picture
         token['phone'] = user.phone
         token['facebook'] = user.facebook
         token['twitter'] = user.twitter
